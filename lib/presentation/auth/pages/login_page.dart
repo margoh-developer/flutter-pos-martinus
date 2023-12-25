@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
+import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
 import 'package:fic1_pos_flutter_martinus/data/models/response/auth_response_model.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
@@ -77,17 +80,18 @@ class _LoginPageState extends State<LoginPage> {
           const SpaceHeight(24.0),
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
-              // TODO: implement listener
               state.maybeWhen(
                   orElse: () {},
                   success: (authResponseModel) {
-                    Navigator.push(
+                    AuthLocalDataSource().saveAuthData(authResponseModel);
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const DashboardPage(),
                         ));
                   },
                   error: (message) {
+                    // log(message);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(message),
                       backgroundColor: Colors.red,
@@ -96,24 +100,21 @@ class _LoginPageState extends State<LoginPage> {
             },
             child:
                 BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-              return state.maybeWhen(
-                orElse: () {
-                  return Button.filled(
-                    onPressed: () {
-                      context.read<LoginBloc>().add(
-                            LoginEvent.login(
-                              email: usernameController.text,
-                              password: passwordController.text,
-                            ),
-                          );
-                    },
-                    label: 'Masuk',
-                  );
-                },
-                loading: () {
-                  return const CircularProgressIndicator();
-                },
-              );
+              return state.maybeWhen(orElse: () {
+                return Button.filled(
+                  onPressed: () {
+                    context.read<LoginBloc>().add(
+                          LoginEvent.login(
+                            email: usernameController.text,
+                            password: passwordController.text,
+                          ),
+                        );
+                  },
+                  label: 'Masuk',
+                );
+              }, loading: () {
+                return const CircularProgressIndicator();
+              });
             }),
           ),
         ],
