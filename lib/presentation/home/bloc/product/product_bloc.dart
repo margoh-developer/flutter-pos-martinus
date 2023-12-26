@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
+import 'package:fic1_pos_flutter_martinus/data/datasources/product_local_datasource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:fic1_pos_flutter_martinus/data/datasources/product_remote_datasource.dart';
@@ -26,6 +27,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         },
       );
     });
+
+    on<_FetchLocal>((event, emit) async {
+      emit(_Loading());
+      final LocalProduct =
+          await ProductLocalDatasource.instance.getAllProduct();
+      products = LocalProduct;
+
+      emit(_Success(products));
+    });
+
     on<_FetchByCategory>((event, emit) async {
       emit(_Loading());
       final newProducts = event.category == "all"

@@ -30,11 +30,12 @@ class MyApp extends StatelessWidget {
           create: (context) => LogoutBloc(AuthRemoteDatasource()),
         ),
         BlocProvider(
-          create: (context) =>
-              ProductBloc(ProductRemoteDatasource())..add(ProductEvent.fetch()),
+          create: (context) => ProductBloc(ProductRemoteDatasource())
+            ..add(ProductEvent.fetchLocal()),
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -49,8 +51,23 @@ class ProductLocalDatasource {
   //insert data product form list product
   Future<void> insertAllProduct(List<Product> products) async {
     final db = await instance.database;
+    // for (int i = products.length - 1; i >= 0; i--) {
+    //   final product = products[i];
+    //   await db.insert(tableProducts, product.toMap());
+    // }
+    // for (int i = 0; i < products.length; i++) {
+    //   final product = products[i];
+    //   await db.insert(tableProducts, product.toMap());
+    // }
     for (var product in products) {
       await db.insert(tableProducts, product.toMap());
     }
+  }
+
+  //get all local Products
+  Future<List<Product>> getAllProduct() async {
+    final db = await instance.database;
+    final result = await db.query(tableProducts);
+    return result.map((e) => Product.fromMap(e)).toList();
   }
 }
