@@ -6,6 +6,7 @@ import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dar
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/home_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/setting_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/nav_item.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/pages/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,21 +22,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
-
-    const Center(
-      child: Text("Payment"),
-    ),
-
+    const OrderPage(),
     const Center(
       child: Text("History"),
     ),
-
     const SettingPage(),
-
-    // const HomePage(),
-    // const OrdersPage(),
-    // const Placeholder(),
-    // const ManageMenuPage(),
   ];
 
   void _onItemTapped(int index) {

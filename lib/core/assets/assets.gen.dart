@@ -118,9 +118,17 @@ class $AssetsImagesGen {
   AssetGenImage get managePrinter =>
       const AssetGenImage('assets/images/manage_printer.png');
 
+  /// File path: assets/images/manage_printers - unused.png
+  AssetGenImage get managePrintersUnused =>
+      const AssetGenImage('assets/images/manage_printers - unused.png');
+
   /// File path: assets/images/manage_printerx.png
   AssetGenImage get managePrinterx =>
       const AssetGenImage('assets/images/manage_printerx.png');
+
+  /// File path: assets/images/manage_product-unused.png
+  AssetGenImage get manageProductUnused =>
+      const AssetGenImage('assets/images/manage_product-unused.png');
 
   /// File path: assets/images/manage_product.png
   AssetGenImage get manageProduct =>
@@ -138,7 +146,9 @@ class $AssetsImagesGen {
         f8,
         logo,
         managePrinter,
+        managePrintersUnused,
         managePrinterx,
+        manageProductUnused,
         manageProduct
       ];
 }

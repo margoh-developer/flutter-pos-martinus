@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                   label: 'Masuk',
                 );
               }, loading: () {
-                return const CircularProgressIndicator();
+                return Center(child: const CircularProgressIndicator());
               });
             }),
           ),

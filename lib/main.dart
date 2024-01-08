@@ -5,8 +5,10 @@ import 'package:fic1_pos_flutter_martinus/data/datasources/product_remote_dataso
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/product/product_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +34,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProductBloc(ProductRemoteDatasource())
             ..add(ProductEvent.fetchLocal()),
+        ),
+        BlocProvider(
+          create: (context) => CheckoutBloc(),
+        ),
+        BlocProvider(
+          create: (context) => OrderBloc(),
         ),
       ],
       child: MaterialApp(

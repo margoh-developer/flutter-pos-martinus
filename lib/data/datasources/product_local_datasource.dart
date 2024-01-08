@@ -3,6 +3,9 @@ import 'dart:math';
 import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../presentation/home/models/order_item.dart';
+import '../../presentation/order/models/order_model.dart';
+
 class ProductLocalDatasource {
   ProductLocalDatasource._init();
 
@@ -31,14 +34,72 @@ class ProductLocalDatasource {
           price INTEGER,
           stock INTEGER,
           image TEXT,
-          category TEXT)
+          category TEXT,
+          is_best_seller INTEGER,
+          is_sync INTEGER DEFAULT 0
+          )
           ''');
+
+    await db.execute('''
+      CREATE TABLE orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nominal INTEGER,
+        payment_method TEXT,
+        total_item INTEGER,
+        id_kasir INTEGER,
+        nama_kasir TEXT,
+        is_sync INTEGER DEFAULT 0
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE order_items (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_order INTEGER,
+        id_product INTEGER,
+        quantity INTEGER,
+        price INTEGER
+      )
+    ''');
+  }
+
+//save order
+  Future<int> saveOrder(OrderModel order) async {
+    final db = await instance.database;
+    int id = await db.insert('orders', order.toMapForLocal());
+    for (var orderItem in order.orders) {
+      await db.insert('order_items', orderItem.toMapForLocal(id));
+    }
+    return id;
+  }
+
+//get order by isSync = 0
+  Future<List<OrderModel>> getOrderByIsSync() async {
+    final db = await instance.database;
+    final result = await db.query('orders', where: 'is_sync = 0');
+
+    return result.map((e) => OrderModel.fromLocalMap(e)).toList();
+  }
+
+  //get order item by id order
+  Future<List<OrderItem>> getOrderItemByOrderId(int idOrder) async {
+    final db = await instance.database;
+    final result = await db.query('order_items', where: 'id_order = $idOrder');
+
+    return result.map((e) => OrderItem.fromMap(e)).toList();
+  }
+
+  //update isSync order by id
+  Future<int> updateIsSyncOrderById(int id) async {
+    final db = await instance.database;
+    return await db.update('orders', {'is_sync': 1},
+        where: 'id = ?', whereArgs: [id]);
   }
 
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('pos1.db');
+    _database = await _initDB('pos4.db');
     return _database!;
   }
 
@@ -46,6 +107,13 @@ class ProductLocalDatasource {
   Future<void> removeAllProduct() async {
     final db = await instance.database;
     await db.delete(tableProducts);
+  }
+
+  //insert data product
+  Future<Product> insertProduct(Product product) async {
+    final db = await instance.database;
+    int id = await db.insert(tableProducts, product.toMap());
+    return product.copyWith(id: id);
   }
 
   //insert data product form list product
@@ -68,6 +136,7 @@ class ProductLocalDatasource {
   Future<List<Product>> getAllProduct() async {
     final db = await instance.database;
     final result = await db.query(tableProducts);
+    // final result = await db.query(tableProducts, orderBy: 'id DESC');
     return result.map((e) => Product.fromMap(e)).toList();
   }
 }
