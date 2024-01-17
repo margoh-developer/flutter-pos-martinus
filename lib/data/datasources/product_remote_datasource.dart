@@ -21,6 +21,7 @@ class ProductRemoteDatasource {
     });
     // log(response.body);
     if (response.statusCode == 200) {
+      // print(response.body);
       return right(ProductResponseModels.fromJson(response.body));
     } else {
       return left(response.body);
@@ -43,7 +44,53 @@ class ProductRemoteDatasource {
     request.fields.addAll(productRequestModel.toMap());
 
     request.files.add(await http.MultipartFile.fromPath(
-        'image', productRequestModel.image.path));
+        'image', productRequestModel.image!.path));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    final String body = await response.stream.bytesToString();
+
+    if (response.statusCode == 201) {
+      return right(AddProductResponseModel.fromJson(body));
+    } else {
+      return left(body);
+    }
+
+    // log(response.body);
+    // if (response.statusCode == 200) {
+    //   return right(ProductResponseModels.fromJson(response.body));
+    // } else {
+    //   return left(response.body);
+    // }
+  }
+
+  Future<Either<String, AddProductResponseModel>> editProduct(
+      ProductRequestModel productRequestModel) async {
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${authData.token}'
+    };
+
+    var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            '${Variables.baseUrl}/api/products/${productRequestModel.productId}'));
+
+    print(productRequestModel.toMap());
+    request.fields.addAll(productRequestModel.toMap());
+
+    if (productRequestModel.image != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'image',
+          productRequestModel.image!.path,
+        ),
+      );
+    }
 
     request.headers.addAll(headers);
 

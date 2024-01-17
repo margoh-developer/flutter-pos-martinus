@@ -46,8 +46,8 @@ class ProductCard extends StatelessWidget {
                 // child: Image.asset(data.image, width: 80, height: 80),
                 // child: Image.network(data.image),
                 child: CachedNetworkImage(
-                  imageUrl: //'${Variables.imageBaseUrl}${data.image}',
-                      '${data.image.contains("http") ? data.image : Variables.imageBaseUrl + data.image}',
+                  imageUrl: '${Variables.imageBaseUrl}${data.image}',
+                  // '${data.image.contains("http") ? data.image : Variables.imageBaseUrl + data.image}',
                   fit: BoxFit.cover,
                   width: 80,
                   height: 80,

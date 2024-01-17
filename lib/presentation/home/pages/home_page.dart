@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/datasources/product_local_datasource.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -23,6 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
   final indexValue = ValueNotifier(0);
+  var productCategory = "all";
 
   List<ProductModel> searchResults = [];
   // final List<ProductModel> products = [
@@ -65,24 +68,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onCategoryTap(int index) {
-    searchController.clear();
+    // searchController.clear();
     indexValue.value = index;
-    String category = 'all';
+    // String category = 'all';
     switch (index) {
       case 0:
-        category = 'all';
+        productCategory = 'all';
         break;
       case 1:
-        category = 'drink';
+        productCategory = 'drink';
         break;
       case 2:
-        category = 'food';
+        productCategory = 'food';
         break;
       case 3:
-        category = 'snack';
+        productCategory = 'snack';
         break;
     }
-    context.read<ProductBloc>().add(ProductEvent.fetchByCategory(category));
+    context.read<ProductBloc>().add(
+        ProductEvent.fetchByCategory(productCategory, searchController.text));
   }
 
   @override
@@ -100,7 +104,8 @@ class _HomePageState extends State<HomePage> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            context.read<ProductBloc>().add(ProductEvent.fetch());
+            
+            context.read<ProductBloc>().add(ProductEvent.fetchLocal());
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text("Sync Data Successfully"),
               backgroundColor: AppColors.primary,
@@ -122,8 +127,17 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             children: [
               SearchInput(
+                clearTap: () {
+                  searchController.clear();
+                  context
+                      .read<ProductBloc>()
+                      .add(ProductEvent.fetchByCategory(productCategory, ""));
+                },
                 controller: searchController,
                 onChanged: (value) {
+                  context.read<ProductBloc>().add(
+                      ProductEvent.fetchByCategory(productCategory, value));
+
                   // indexValue.value = 0;
                   // searchResults = products
                   //     .where((e) =>

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-
-
 class SearchInput extends StatelessWidget {
   final TextEditingController controller;
   final Function(String value)? onChanged;
   final VoidCallback? onTap;
+  final VoidCallback? clearTap;
 
   const SearchInput({
     super.key,
     required this.controller,
     this.onChanged,
     this.onTap,
+    this.clearTap,
   });
 
   @override
@@ -33,6 +33,11 @@ class SearchInput extends StatelessWidget {
           prefixIcon: const Icon(
             Icons.search,
             color: AppColors.primary,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.clear),
+            color: AppColors.primary,
+            onPressed: clearTap,
           ),
           contentPadding: const EdgeInsets.all(16.0),
           border: OutlineInputBorder(

@@ -12,6 +12,7 @@ class ProductRequestModel {
 
   final int isBestSeller;
   final XFile image;
+  final int? productId;
   // final bool isSync = true;
 
   ProductRequestModel({
@@ -24,6 +25,7 @@ class ProductRequestModel {
     // required this.isSync
     this.isBestSeller = 0,
     required this.image,
+    this.productId,
   });
 
   Map<String, String> toMap() {

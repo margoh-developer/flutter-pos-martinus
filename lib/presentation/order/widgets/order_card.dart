@@ -41,8 +41,8 @@ class OrderCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(50.0)),
                 child: CachedNetworkImage(
-                  imageUrl: //'${Variables.imageBaseUrl}${data.image}',
-                      '${data.product.image.contains("http") ? data.product.image : Variables.imageBaseUrl + data.product.image}',
+                  imageUrl: '${Variables.imageBaseUrl}${data.product.image}',
+                  // '${data.product.image.contains("http") ? data.product.image : Variables.imageBaseUrl + data.product.image}',
                   fit: BoxFit.cover,
                   width: 80,
                   height: 80,

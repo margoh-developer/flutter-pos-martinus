@@ -1,17 +1,23 @@
 import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
 import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
 import 'package:fic1_pos_flutter_martinus/data/datasources/auth_remote_datasource.dart';
+import 'package:fic1_pos_flutter_martinus/data/datasources/midtrans_remote_datasource.dart';
+import 'package:fic1_pos_flutter_martinus/data/datasources/order_remote_datasource.dart';
 import 'package:fic1_pos_flutter_martinus/data/datasources/product_remote_datasource.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/history/bloc/history/history_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/product/product_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/home/settings/bloc/sync_order/sync_order_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'presentation/order/bloc/bloc/qris_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +46,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OrderBloc(),
+        ),
+        BlocProvider(
+          create: (context) => QrisBloc(MidtransRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => HistoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SyncOrderBloc(OrderRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

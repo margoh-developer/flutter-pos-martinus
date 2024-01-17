@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
 import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/edit_product_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/components/buttons.dart';
@@ -30,8 +31,8 @@ class MenuProductItem extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             child: CachedNetworkImage(
-              imageUrl: //'${Variables.imageBaseUrl}${data.image}',
-                  '${data.image.contains("http") ? data.image : Variables.imageBaseUrl + data.image}',
+              imageUrl: '${Variables.imageBaseUrl}${data.image}',
+              // '${data.image.contains("http") ? data.image : Variables.imageBaseUrl + data.image}',
               fit: BoxFit.cover,
               width: 80,
               height: 80,
@@ -111,8 +112,9 @@ class MenuProductItem extends StatelessWidget {
                                                 BorderRadius.circular(35)),
                                         clipBehavior: Clip.antiAlias,
                                         child: CachedNetworkImage(
-                                          imageUrl: //'${Variables.imageBaseUrl}${data.image}',
-                                              '${data.image.contains("http") ? data.image : Variables.imageBaseUrl + data.image}',
+                                          imageUrl:
+                                              '${Variables.imageBaseUrl}${data.image}',
+                                          // '${data.image?.contains("http") ? data.image! : Variables.imageBaseUrl + data.image!}',
                                           width: 80,
                                           height: 80,
                                           placeholder: (context, url) =>
@@ -172,6 +174,11 @@ class MenuProductItem extends StatelessWidget {
                     Flexible(
                       child: Button.outlined(
                         onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditProductPage(data: data)));
                           // context.push(EditProductPage(data: data));
                         },
                         label: 'Edit',

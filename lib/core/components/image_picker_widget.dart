@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,12 +13,14 @@ class ImagePickerWidget extends StatefulWidget {
   final String label;
   final void Function(XFile? file) onChanged;
   final bool showLabel;
+  final String? existingImageURL;
 
   const ImagePickerWidget({
     super.key,
     required this.label,
     required this.onChanged,
     this.showLabel = true,
+    this.existingImageURL,
   });
 
   @override
@@ -35,6 +38,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
     setState(() {
       if (pickedFile != null) {
         imagePath = pickedFile.path;
+        print(imagePath);
         widget.onChanged(pickedFile);
       } else {
         debugPrint('No image selected.');
@@ -72,15 +76,28 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: imagePath != null
-                      ? Image.file(
-                          File(imagePath!),
+                      ? Image.memory(
+                          File(imagePath!).readAsBytesSync(),
                           fit: BoxFit.cover,
                         )
-                      : Container(
-                          padding: const EdgeInsets.all(16.0),
-                          color: AppColors.black.withOpacity(0.05),
-                          child: Assets.icons.image.svg(),
-                        ),
+                      : widget.existingImageURL != null
+                          ? CachedNetworkImage(
+                              imageUrl: widget.existingImageURL!,
+                              fit: BoxFit.cover,
+                              width: 80,
+                              height: 80,
+                              placeholder: (context, url) =>
+                                  Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.food_bank_outlined,
+                                size: 80,
+                              ),
+                            )
+                          : Container(
+                              padding: const EdgeInsets.all(16.0),
+                              color: AppColors.black.withOpacity(0.05),
+                              child: Assets.icons.image.svg(),
+                            ),
                 ),
               ),
               const Spacer(),

@@ -23,6 +23,12 @@ class ManageProductPage extends StatefulWidget {
 }
 
 class _ManageProductPageState extends State<ManageProductPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductBloc>().add(ProductEvent.fetchByCategory("all", ""));
+  }
+
   final List<ProductModel> products = [
     ProductModel(
       image: Assets.images.f1.path,

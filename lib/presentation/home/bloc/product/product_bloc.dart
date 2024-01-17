@@ -21,9 +21,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<_Fetch>((event, emit) async {
       emit(_Loading());
       final response = await _productRemoteDatasource.getProducts();
+      print(response);
       response.fold(
         (l) => emit(_Error(l)),
-        (r) {
+        (r) async {
+          // await ProductLocalDatasource.instance.removeAllProduct();
+          // await ProductLocalDatasource.instance.insertAllProduct(r.data);
           products = r.data;
           emit(_Success(r.data));
         },
@@ -46,11 +49,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           : products
               .where((element) => element.category == event.category)
               .toList();
-      emit(_Success(newProducts));
+
+      final searchProducts = newProducts
+          .where((element) =>
+              element.name.toLowerCase().contains(event.search.toLowerCase()))
+          .toList();
+      emit(_Success(searchProducts));
     });
 
     on<_AddProduct>((event, emit) async {
-      // emit(_Loading());
+      emit(_Loading());
       final requestData = ProductRequestModel(
           name: event.product.name,
           price: event.product.price,
@@ -64,15 +72,38 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         (l) => emit(_Error(l)),
         (r) {
           products.add(r.data);
-          try {
-            emit(_Success(products));
-          } catch (e) {
-            print(e);
-          }
+          ProductLocalDatasource.instance.insertProduct(r.data);
+          emit(_Success(products));
         },
       );
 
-      emit(_Success(products));
+      // emit(_Success(products));
     });
+
+    // on<_EditProduct>((event, emit) async {
+    //   emit(_Loading());
+
+    //   final requestData = ProductRequestModel(
+    //       productId: event.product.id,
+    //       name: event.product.name,
+    //       price: event.product.price,
+    //       stock: event.product.stock,
+    //       category: event.product.category,
+    //       image: event.image,
+    //       isBestSeller: event.product.isBestSeller ? 1 : 0);
+    //   final newProduct =
+    //       await _productRemoteDatasource.editProduct(requestData);
+
+    //   newProduct.fold(
+    //     (l) => emit(_Error(l)),
+    //     (r) {
+    //       products.add(r.data);
+    //       ProductLocalDatasource.instance.insertProduct(r.data);
+    //       emit(_Success(products));
+    //     },
+    //   );
+
+    //   // emit(_Success(products));
+    // });
   }
 }

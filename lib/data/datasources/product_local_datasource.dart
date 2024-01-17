@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../presentation/home/models/order_item.dart';
 import '../../presentation/order/models/order_model.dart';
+import '../models/request/order_request_model.dart';
 
 class ProductLocalDatasource {
   ProductLocalDatasource._init();
@@ -23,12 +22,14 @@ class ProductLocalDatasource {
       path,
       version: 1,
       onCreate: _createDB,
+      // onUpgrade: _upgradeDB,
     );
   }
 
   Future _createDB(Database db, int version) async {
     await db.execute('''CREATE TABLE $tableProducts(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
+          product_id INTEGER,
           name TEXT,
           description TEXT,
           price INTEGER,
@@ -48,6 +49,7 @@ class ProductLocalDatasource {
         total_item INTEGER,
         id_kasir INTEGER,
         nama_kasir TEXT,
+        transaction_time TEXT,
         is_sync INTEGER DEFAULT 0
       )
     ''');
@@ -61,6 +63,22 @@ class ProductLocalDatasource {
         price INTEGER
       )
     ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    // Anda dapat menambahkan logika pembaruan versi database di sini
+    // Contoh:
+    if (oldVersion < 2) {
+      // Tambahkan logika untuk versi 2 di sini
+      // await db
+      //     .execute('ALTER TABLE $tableProducts ADD COLUMN product_id INTEGER');
+      // await db.execute('ALTER TABLE orders ADD COLUMN transaction_time TEXT');
+    }
+
+    // dan seterusnya...
+
+    // Pastikan untuk meningkatkan versi database
+    await db.setVersion(newVersion);
   }
 
 //save order
@@ -89,6 +107,14 @@ class ProductLocalDatasource {
     return result.map((e) => OrderItem.fromMap(e)).toList();
   }
 
+  //get order item by id order
+  Future<List<OrderItemModel>> getOrderItemByOrderIdLocal(int idOrder) async {
+    final db = await instance.database;
+    final result = await db.query('order_items', where: 'id_order = $idOrder');
+
+    return result.map((e) => OrderItem.fromMapLocal(e)).toList();
+  }
+
   //update isSync order by id
   Future<int> updateIsSyncOrderById(int id) async {
     final db = await instance.database;
@@ -99,7 +125,7 @@ class ProductLocalDatasource {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('pos4.db');
+    _database = await _initDB('pos6.db');
     return _database!;
   }
 
@@ -128,7 +154,7 @@ class ProductLocalDatasource {
     //   await db.insert(tableProducts, product.toMap());
     // }
     for (var product in products) {
-      await db.insert(tableProducts, product.toMap());
+      await db.insert(tableProducts, product.toLocalMap());
     }
   }
 
@@ -138,5 +164,13 @@ class ProductLocalDatasource {
     final result = await db.query(tableProducts);
     // final result = await db.query(tableProducts, orderBy: 'id DESC');
     return result.map((e) => Product.fromMap(e)).toList();
+  }
+
+  //get all orders
+  Future<List<OrderModel>> getAllOrder() async {
+    final db = await instance.database;
+    final result = await db.query('orders', orderBy: 'id DESC');
+
+    return result.map((e) => OrderModel.fromLocalMap(e)).toList();
   }
 }

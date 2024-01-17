@@ -3,6 +3,7 @@ import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
 import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/history/pages/history_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/home_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/setting_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/nav_item.dart';
@@ -23,9 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> _pages = [
     const HomePage(),
     const OrderPage(),
-    const Center(
-      child: Text("History"),
-    ),
+    const HistoryPage(),
     const SettingPage(),
   ];
 
@@ -100,13 +99,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 }),
             NavItem(
               iconPath: Assets.icons.payments.path,
-              label: 'History',
+              label: 'Histories',
               isActive: _selectedIndex == 2,
               onTap: () => _onItemTapped(2),
             ),
             NavItem(
               iconPath: Assets.icons.dashboard.path,
-              label: 'Kelola',
+              label: 'Settings',
               isActive: _selectedIndex == 3,
               onTap: () => _onItemTapped(3),
             ),

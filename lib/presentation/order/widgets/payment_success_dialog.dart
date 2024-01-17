@@ -3,10 +3,12 @@ import 'package:fic1_pos_flutter_martinus/core/extensions/date_time_ext.dart';
 import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
+import '../../../data/dataoutputs/cwb_print.dart';
 import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../../home/pages/dashboard_page.dart';
 import '../bloc/order/order_bloc.dart';
@@ -46,7 +48,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                   const SpaceHeight(12.0),
                   _LabelValue(
                     label: 'METODE PEMBAYARAN',
-                    value: paymentType,
+                    value: paymentType == "cash" ? "Tunai" : "QRIS",
                   ),
                   const Divider(height: 36.0),
                   _LabelValue(
@@ -85,9 +87,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                       Flexible(
                         child: Button.outlined(
                           onPressed: () async {
-                            // final ticket = await CwbPrint.instance.bluetoothStart();
-                            // final result =
-                            // await PrintBluetoothThermal.writeBytes(ticket);
+                            final ticket = await CwbPrint.instance.printOrder(data, qty, total, paymentType, nominal,  nameKasir);
+                            final result =
+                            await PrintBluetoothThermal.writeBytes(ticket);
                           },
                           label: 'Print',
                           icon: Assets.icons.print.svg(),

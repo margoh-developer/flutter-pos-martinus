@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
 import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
 import 'package:fic1_pos_flutter_martinus/core/extensions/string_ext.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +13,7 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/image_picker_widget.dart';
 import '../../../../core/components/spaces.dart';
+import '../../../../core/constants/colors.dart';
 import '../../../../data/models/response/product_response_model.dart';
 import '../../bloc/product/product_bloc.dart';
 import '../models/category_model.dart';
@@ -124,12 +127,27 @@ class _AddProductPageState extends State<AddProductPage> {
           BlocConsumer<ProductBloc, ProductState>(
             listener: (context, state) {
               state.maybeMap(
-                orElse: () {},
+                orElse: () {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: AppColors.primary,
+                      content: Text(
+                        message.message,
+                      )));
+                },
                 success: (_) {
                   // Navigator.pop(context);
-                  Future.delayed(const Duration(milliseconds: 100), () {
-                    Navigator.pop(context);
-                  });
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DashboardPage()));
+                  // Future.delayed(const Duration(milliseconds: 100), () {
+                  //   Navigator.pop(context);
+                  // });
                 },
               );
             },
@@ -164,6 +182,8 @@ class _AddProductPageState extends State<AddProductPage> {
                     context
                         .read<ProductBloc>()
                         .add(ProductEvent.addProduct(product, imageFile!));
+
+                    //navigate to home
                   },
                   label: 'Simpan',
                 );
