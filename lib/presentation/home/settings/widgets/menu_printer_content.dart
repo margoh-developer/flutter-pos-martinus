@@ -21,7 +21,7 @@ class MenuPrinterContent extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
             width: isSelected ? 4.0 : 1.0,
-            color: isSelected ? AppColors.blueLight : AppColors.card),
+            color: isSelected ? AppColors.primaryLight : AppColors.card),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

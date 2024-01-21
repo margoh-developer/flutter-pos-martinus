@@ -80,30 +80,43 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       // emit(_Success(products));
     });
 
-    // on<_EditProduct>((event, emit) async {
-    //   emit(_Loading());
+    on<_EditProduct>((event, emit) async {
+      emit(_Loading());
+      final requestData;
 
-    //   final requestData = ProductRequestModel(
-    //       productId: event.product.id,
-    //       name: event.product.name,
-    //       price: event.product.price,
-    //       stock: event.product.stock,
-    //       category: event.product.category,
-    //       image: event.image,
-    //       isBestSeller: event.product.isBestSeller ? 1 : 0);
-    //   final newProduct =
-    //       await _productRemoteDatasource.editProduct(requestData);
+      if (event.image != null) {
+        requestData = ProductRequestModel(
+            productId: event.product.id,
+            name: event.product.name,
+            price: event.product.price,
+            stock: event.product.stock,
+            category: event.product.category,
+            image: event.image,
+            isBestSeller: event.product.isBestSeller ? 1 : 0);
+      } else {
+        requestData = ProductRequestModel(
+            productId: event.product.id,
+            name: event.product.name,
+            price: event.product.price,
+            stock: event.product.stock,
+            category: event.product.category,
+            isBestSeller: event.product.isBestSeller ? 1 : 0);
+      }
+      print(requestData);
 
-    //   newProduct.fold(
-    //     (l) => emit(_Error(l)),
-    //     (r) {
-    //       products.add(r.data);
-    //       ProductLocalDatasource.instance.insertProduct(r.data);
-    //       emit(_Success(products));
-    //     },
-    //   );
+      final updatedProduct =
+          await _productRemoteDatasource.editProduct(requestData);
 
-    //   // emit(_Success(products));
-    // });
+      print(updatedProduct);
+      updatedProduct.fold(
+        (l) => emit(_Error(l)),
+        (r) {
+          // products.add(r.data);
+          ProductLocalDatasource.instance.updateProduct(r.data);
+
+          emit(_Success(products));
+        },
+      );
+    });
   }
 }

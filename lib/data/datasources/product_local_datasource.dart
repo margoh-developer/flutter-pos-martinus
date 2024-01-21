@@ -142,6 +142,13 @@ class ProductLocalDatasource {
     return product.copyWith(id: id);
   }
 
+  //update single product
+  Future<int> updateProduct(Product product) async {
+    final db = await instance.database;
+    return await db.update(tableProducts, product.toMap(),
+        where: 'id = ?', whereArgs: [product.id]);
+  }
+
   //insert data product form list product
   Future<void> insertAllProduct(List<Product> products) async {
     final db = await instance.database;

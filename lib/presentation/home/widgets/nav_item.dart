@@ -63,6 +63,9 @@ class NavItem extends StatelessWidget {
                         );
                       } else {
                         return badges.Badge(
+                          badgeAnimation: badges.BadgeAnimation.scale(),
+                          badgeStyle:
+                              badges.BadgeStyle(badgeColor: AppColors.primary),
                           badgeContent: Text(
                             qty.toString(),
                             style: TextStyle(color: AppColors.white),

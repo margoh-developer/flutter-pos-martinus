@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
           const SpaceHeight(24.0),
           const Center(
             child: Text(
-              "POS Batch 11",
+              "Aneka Ria Coffee Shop",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
           const SpaceHeight(8.0),
           const Center(
             child: Text(
-              "Masuk untuk kasir",
+              "Masuk untuk Menu Cashier",
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

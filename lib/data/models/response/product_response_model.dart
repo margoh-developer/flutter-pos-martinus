@@ -93,7 +93,7 @@ class Product {
         "category": category,
         "image": image,
         "is_best_seller": isBestSeller ? 1 : 0,
-        "product_id": productId,
+        "product_id": id,
         // "is_sync": isSync ? 1 : 0,
         // "created_at": createdAt.toIso8601String(),
         // "updated_at": updatedAt.toIso8601String(),

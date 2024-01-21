@@ -52,8 +52,9 @@ class _EditProductPageState extends State<EditProductPage> {
   @override
   void initState() {
     nameController.text = widget.data.name;
-    priceController.text = widget.data.price.toString();
+    priceController.text = widget.data.price.currencyFormatRp;
     stockController.text = widget.data.stock.toString();
+
     super.initState();
   }
 
@@ -96,9 +97,10 @@ class _EditProductPageState extends State<EditProductPage> {
             existingImageURL: '${Variables.imageBaseUrl}${widget.data.image}',
             label: 'Foto Produk',
             onChanged: (file) {
-              if (file != null) {
-                imageFile = file;
+              if (file == null) {
+                return;
               }
+              imageFile = file;
             },
           ),
           const SpaceHeight(20.0),
@@ -123,7 +125,16 @@ class _EditProductPageState extends State<EditProductPage> {
           ),
           const SpaceHeight(20.0),
           CustomDropdown<CategoryModel>(
-            value: categories.first,
+            // value: widget.data.category == 'drink'
+            //     ? categories[0]
+            //     : widget.data.category == 'food'
+            //         ? categories[1]
+            //         : categories[2],
+            value: categories.firstWhere(
+              (category) => category.value == widget.data.category,
+              orElse: () => categories[
+                  0], // Atau nilai default jika kategori tidak ditemukan
+            ),
             items: categories,
             label: 'Kategori',
             onChanged: (value) {
@@ -140,6 +151,7 @@ class _EditProductPageState extends State<EditProductPage> {
                   );
                 },
                 error: (message) {
+                  print(message.message);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: AppColors.primary,
                       content: Text(
@@ -148,6 +160,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 },
                 success: (_) {
                   // Navigator.pop(context);
+                  // context.read<ProductBloc>().add(ProductEvent.fetch());
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -168,24 +181,85 @@ class _EditProductPageState extends State<EditProductPage> {
                   child: CircularProgressIndicator(),
                 );
               }, error: (message) {
-                return Center(
-                  child: Text(message),
+                // print(message);
+                return Button.filled(
+                  onPressed: () {
+                    final Product product;
+                    final String name = nameController.text;
+                    final int price = priceController.text.toIntegerFromText;
+                    final int stock = stockController.text.toIntegerFromText;
+                    if (imageFile == null) {
+                      product = Product(
+                        name: name,
+                        price: price,
+                        stock: stock,
+                        category: category,
+                        isBestSeller: isBestSeller,
+                        id: widget.data.id,
+                      );
+                      context
+                          .read<ProductBloc>()
+                          .add(ProductEvent.editProduct(product));
+                    } else {
+                      product = Product(
+                        name: name,
+                        price: price,
+                        stock: stock,
+                        category: category,
+                        isBestSeller: isBestSeller,
+                        id: widget.data.id,
+                        image: imageFile!.path,
+                      );
+                      context
+                          .read<ProductBloc>()
+                          .add(ProductEvent.editProduct(product, imageFile!));
+                    }
+
+                    // context
+                    //     .read<ProductBloc>()
+                    //     .add(ProductEvent.editProduct(product));
+
+                    //navigate to home
+                  },
+                  label: 'Simpan',
                 );
               }, success: (_) {
                 return Button.filled(
                   onPressed: () {
+                    final Product product;
                     final String name = nameController.text;
                     final int price = priceController.text.toIntegerFromText;
                     final int stock = stockController.text.toIntegerFromText;
-                    final Product product = Product(
-                      name: name,
-                      price: price,
-                      stock: stock,
-                      category: category,
-                      isBestSeller: isBestSeller,
-                    );
-                    context.read<ProductBloc>().add(ProductEvent.editProduct(
-                        product, imageFile ?? XFile('')));
+                    if (imageFile == null) {
+                      product = Product(
+                        name: name,
+                        price: price,
+                        stock: stock,
+                        category: category,
+                        isBestSeller: isBestSeller,
+                        id: widget.data.productId,
+                      );
+                      context
+                          .read<ProductBloc>()
+                          .add(ProductEvent.editProduct(product));
+                    } else {
+                      product = Product(
+                        name: name,
+                        price: price,
+                        stock: stock,
+                        category: category,
+                        isBestSeller: isBestSeller,
+                        id: widget.data.productId,
+                        image: imageFile!.path,
+                      );
+                      context
+                          .read<ProductBloc>()
+                          .add(ProductEvent.editProduct(product, imageFile!));
+                    }
+
+                    // context
+                    //     .read<ProductBloc>()
+                    //     .add(ProductEvent.editProduct(product));
 
                     //navigate to home
                   },

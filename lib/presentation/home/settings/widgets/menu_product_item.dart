@@ -22,7 +22,7 @@ class MenuProductItem extends StatelessWidget {
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(width: 3, color: AppColors.blueLight),
+          side: const BorderSide(width: 3, color: AppColors.primaryLight),
           borderRadius: BorderRadius.circular(10),
         ),
       ),
@@ -77,7 +77,7 @@ class MenuProductItem extends StatelessWidget {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     )),
-                                backgroundColor: AppColors.blueLight,
+                                backgroundColor: AppColors.primaryLight,
                                 // icon: const Icon(Icons.info),
                                 // title: Text("${data.name}"),
                                 contentPadding: EdgeInsets.all(16),

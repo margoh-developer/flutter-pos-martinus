@@ -21,7 +21,7 @@ class ProductRemoteDatasource {
     });
     // log(response.body);
     if (response.statusCode == 200) {
-      // print(response.body);
+      print(response.body);
       return right(ProductResponseModels.fromJson(response.body));
     } else {
       return left(response.body);
@@ -79,11 +79,13 @@ class ProductRemoteDatasource {
         'POST',
         Uri.parse(
             '${Variables.baseUrl}/api/products/${productRequestModel.productId}'));
-
+    print(productRequestModel.productId);
     print(productRequestModel.toMap());
-    request.fields.addAll(productRequestModel.toMap());
 
-    if (productRequestModel.image != null) {
+    request.fields.addAll(productRequestModel.toMap());
+    request.fields['_method'] = 'PUT';
+    print(productRequestModel.image);
+    if (productRequestModel.image?.path != null) {
       request.files.add(
         await http.MultipartFile.fromPath(
           'image',
@@ -103,12 +105,5 @@ class ProductRemoteDatasource {
     } else {
       return left(body);
     }
-
-    // log(response.body);
-    // if (response.statusCode == 200) {
-    //   return right(ProductResponseModels.fromJson(response.body));
-    // } else {
-    //   return left(response.body);
-    // }
   }
 }
