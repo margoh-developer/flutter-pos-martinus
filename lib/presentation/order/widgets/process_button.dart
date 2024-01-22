@@ -32,7 +32,7 @@ class ProcessButton extends StatelessWidget {
               builder: (context, state) {
                 return state.maybeWhen(orElse: () {
                   return Center();
-                }, success: (data, qty, total) {
+                }, success: (tnumber,data, qty, total) {
                   return Text(
                     total.currencyFormatRp,
                     style: const TextStyle(

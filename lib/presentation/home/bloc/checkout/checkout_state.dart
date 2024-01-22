@@ -4,7 +4,8 @@ part of 'checkout_bloc.dart';
 class CheckoutState with _$CheckoutState {
   const factory CheckoutState.initial() = _Initial;
   const factory CheckoutState.loading() = _Loading;
-  const factory CheckoutState.success(
-      List<OrderItem> products,int totalQuantity,int totalPrice) = _Success;
+  const factory CheckoutState.success(int tableNumber, List<OrderItem> products,
+      int totalQuantity, int totalPrice) = _Success;
+ const factory CheckoutState.loadtable(int tableNumber) = _Loadtable;
   const factory CheckoutState.error(String message) = _Error;
 }

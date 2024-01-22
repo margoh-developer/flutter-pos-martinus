@@ -1,9 +1,11 @@
-import 'package:fic1_pos_flutter_martinus/presentation/home/models/order_item.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/payment_method_dialog.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:fic1_pos_flutter_martinus/presentation/home/models/order_item.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/payment_method_dialog.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/menu_button.dart';
@@ -16,7 +18,11 @@ import '../widgets/payment_qris_dialog.dart';
 import '../widgets/process_button.dart';
 
 class OrderPage extends StatefulWidget {
-  const OrderPage({super.key});
+  final int tableNumber;
+  const OrderPage({
+    Key? key,
+    required this.tableNumber,
+  }) : super(key: key);
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -73,7 +79,7 @@ class _OrderPageState extends State<OrderPage> {
             return const Center(
               child: Text("No Data"),
             );
-          }, success: (data, qty, price) {
+          }, success: (tnumber, data, qty, price) {
             if (data.isEmpty) {
               return const Center(
                 child: Text("No Data"),
@@ -86,6 +92,7 @@ class _OrderPageState extends State<OrderPage> {
               itemCount: data.length,
               separatorBuilder: (context, index) => const SpaceHeight(20.0),
               itemBuilder: (context, index) => OrderCard(
+                tableNumber: widget.tableNumber,
                 padding: paddingHorizontal,
                 data: data[index],
                 onDeleteTap: () {
@@ -104,7 +111,7 @@ class _OrderPageState extends State<OrderPage> {
         builder: (context, state) {
           return state.maybeWhen(orElse: () {
             return const SizedBox();
-          }, success: (data, qty, price) {
+          }, success: (tnumber, data, qty, price) {
             if (data.isEmpty) {
               return const SizedBox();
             }

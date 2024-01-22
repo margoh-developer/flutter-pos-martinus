@@ -52,6 +52,7 @@ class OrderItemModel {
     required this.productId,
     required this.quantity,
     required this.totalPrice,
+    
   });
 
   factory OrderItemModel.fromJson(String str) =>

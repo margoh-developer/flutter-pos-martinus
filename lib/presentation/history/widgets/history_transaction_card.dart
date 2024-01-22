@@ -34,7 +34,8 @@ class HistoryTransactionCard extends StatelessWidget {
       child: ListTile(
         leading: Assets.icons.payments.svg(),
         title: Text(data.paymentMethod == "cash" ? "Cash" : "QRIS"),
-        subtitle: Text('${data.totalQuantity} items'),
+        subtitle:
+            Text('Meja - ${data.tableNumber} ${data.totalQuantity} items'),
         trailing: Text(
           data.totalPrice.currencyFormatRp,
           style: const TextStyle(

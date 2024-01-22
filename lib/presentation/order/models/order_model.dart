@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import '../../home/models/order_item.dart';
@@ -13,6 +14,7 @@ class OrderModel {
   final String namaKasir;
   final String transactionTime;
   final bool isSync;
+  final int? tableNumber;
   OrderModel({
     this.id,
     required this.paymentMethod,
@@ -24,6 +26,7 @@ class OrderModel {
     required this.namaKasir,
     required this.transactionTime,
     required this.isSync,
+    this.tableNumber,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,6 +39,7 @@ class OrderModel {
       'idKasir': idKasir,
       'namaKasir': namaKasir,
       'isSync': isSync,
+      'tableNumber': tableNumber,
     };
   }
 
@@ -55,6 +59,7 @@ class OrderModel {
       'nama_kasir': namaKasir,
       'is_sync': isSync ? 1 : 0,
       'transaction_time': transactionTime,
+      'tableNumber': tableNumber,
     };
   }
 
@@ -70,6 +75,7 @@ class OrderModel {
       namaKasir: map['nama_kasir'] ?? '',
       id: map['id']?.toInt() ?? 0,
       transactionTime: map['transaction_time'] ?? '',
+      tableNumber: map['tableNumber']?.toInt() ?? 0,
     );
   }
 
@@ -86,6 +92,7 @@ class OrderModel {
       namaKasir: map['namaKasir'] ?? '',
       id: map['id']?.toInt() ?? 0,
       transactionTime: map['transactionTime'] ?? '',
+      tableNumber: map['tableNumber']?.toInt() ?? 0,
     );
   }
 

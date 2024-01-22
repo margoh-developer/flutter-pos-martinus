@@ -13,6 +13,7 @@ import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/product/product
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/settings/bloc/sync_order/sync_order_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/table/bloc/table/table_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,6 +56,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SyncOrderBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => TableBloc(),
         ),
       ],
       child: MaterialApp(

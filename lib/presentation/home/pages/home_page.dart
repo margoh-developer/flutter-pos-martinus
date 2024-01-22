@@ -1,3 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/pages/order_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
 import 'package:fic1_pos_flutter_martinus/core/components/menu_button.dart';
 import 'package:fic1_pos_flutter_martinus/core/components/search_input.dart';
@@ -9,14 +16,15 @@ import 'package:fic1_pos_flutter_martinus/presentation/home/models/product_categ
 import 'package:fic1_pos_flutter_martinus/presentation/home/models/product_model.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/product_card.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/product_empty.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/datasources/product_local_datasource.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final int tableNumber;
+  const HomePage({
+    Key? key,
+    required this.tableNumber,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -94,8 +102,8 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Menu',
+          title: Text(
+            'Menu untuk Meja ${widget.tableNumber}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -104,7 +112,6 @@ class _HomePageState extends State<HomePage> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            
             context.read<ProductBloc>().add(ProductEvent.fetchLocal());
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text("Sync Data Successfully"),
@@ -215,6 +222,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       itemBuilder: (context, index) => ProductCard(
                         data: products[index],
+                        tableNumber: widget.tableNumber,
                         // onCartButton: () {},
                       ),
                     );
@@ -225,6 +233,11 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.shopping_cart),
+            onPressed: () {
+              context.push(OrderPage(tableNumber: widget.tableNumber));
+            }),
       ),
     );
   }

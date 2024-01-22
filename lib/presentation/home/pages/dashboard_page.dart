@@ -4,10 +4,13 @@ import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource
 import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/history/pages/history_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/pages/home_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/setting_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/nav_item.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/order/pages/list_order_page.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/order/pages/order_page.dart';
+import 'package:fic1_pos_flutter_martinus/presentation/table/pages/table_order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,8 +25,8 @@ class _DashboardPageState extends State<DashboardPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePage(),
-    const OrderPage(),
+    const TableOrderPage(),
+    const ListOrderPage(),
     const HistoryPage(),
     const SettingPage(),
   ];

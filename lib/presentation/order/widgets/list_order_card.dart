@@ -1,29 +1,49 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:fic1_pos_flutter_martinus/presentation/home/models/order_item.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
-import '../../../core/constants/variables.dart';
 
-class OrderCard extends StatelessWidget {
-  final OrderItem data;
+class ListOrderCard extends StatefulWidget {
+  final int tableNumber;
   final VoidCallback onDeleteTap;
   final EdgeInsetsGeometry? padding;
-  final int tableNumber;
+  final List<OrderItem> listTableOrders;
 
-  const OrderCard({
+  const ListOrderCard({
     Key? key,
-    required this.data,
+    required this.tableNumber,
     required this.onDeleteTap,
     this.padding,
-    required this.tableNumber,
+    required this.listTableOrders,
   }) : super(key: key);
+
+  @override
+  State<ListOrderCard> createState() => _ListOrderCardState();
+}
+
+class _ListOrderCardState extends State<ListOrderCard> {
+  List<OrderItem> newCheckout = [];
+  int totalQuantity = 0;
+  int totalPrice = 0;
+  @override
+  void initState() {
+    List<OrderItem> products = widget.listTableOrders;
+
+    if (products.isNotEmpty) {
+      newCheckout = products;
+
+      for (var element in newCheckout) {
+        totalQuantity += element.quantity;
+        totalPrice += element.quantity * element.product.price;
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +51,7 @@ class OrderCard extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         Container(
-          margin: padding,
+          margin: widget.padding,
           padding: const EdgeInsets.all(16.0),
           decoration: ShapeDecoration(
             color: Colors.white,
@@ -42,29 +62,6 @@ class OrderCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-                child: CachedNetworkImage(
-                  imageUrl: '${Variables.imageBaseUrl}${data.product.image}',
-                  // '${data.product.image.contains("http") ? data.product.image : Variables.imageBaseUrl + data.product.image}',
-                  fit: BoxFit.cover,
-                  width: 80,
-                  height: 80,
-                  placeholder: (context, url) =>
-                      Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.food_bank_outlined,
-                    size: 80,
-                  ),
-                ),
-
-                // Image.asset(
-                //   data.product.image,
-                //   width: 76,
-                //   height: 76,
-                //   fit: BoxFit.cover,
-                // ),
-              ),
               const SpaceWidth(24.0),
               Flexible(
                 child: Column(
@@ -74,13 +71,13 @@ class OrderCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          data.product.name,
+                          'Meja - ${widget.tableNumber}',
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
-                          (data.product.price * data.quantity).currencyFormatRp,
+                          totalPrice.currencyFormatRp,
                           // data.product.price.currencyFormatRp,
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
@@ -94,8 +91,8 @@ class OrderCard extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context.read<CheckoutBloc>().add(
-                                  CheckoutEvent.removeCheckout(data.product));
+                              // context.read<CheckoutBloc>().add(
+                              //     CheckoutEvent.removeCheckout());
 
                               // if (data.quantity > 1) {
                               //   data.quantity--;
@@ -113,14 +110,14 @@ class OrderCard extends StatelessWidget {
                           SizedBox(
                             width: 40.0,
                             child: Center(
-                              child: Text(data.quantity.toString()),
+                              child: Text(totalQuantity.toString()),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              context
-                                  .read<CheckoutBloc>()
-                                  .add(CheckoutEvent.addcheckout(data.product));
+                              // context
+                              //     .read<CheckoutBloc>()
+                              //     .add(CheckoutEvent.addcheckout(data.product));
                               // data.quantity++;
                               // setState(() {});
                             },
@@ -144,7 +141,7 @@ class OrderCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: IconButton(
-            onPressed: onDeleteTap,
+            onPressed: widget.onDeleteTap,
             icon: const Icon(
               Icons.highlight_off,
               color: AppColors.primary,

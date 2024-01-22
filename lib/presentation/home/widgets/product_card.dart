@@ -1,23 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/variables.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:fic1_pos_flutter_martinus/core/constants/variables.dart';
+import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
+import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
+import '../../table/bloc/table/table_bloc.dart';
 import '../bloc/checkout/checkout_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final Product data;
+  final int tableNumber;
   // final VoidCallback onCartButton;
 
   const ProductCard({
-    super.key,
+    Key? key,
     required this.data,
-    // required this.onCartButton,
-  });
+    required this.tableNumber,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,13 +121,19 @@ class ProductCard extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () => SizedBox(),
-            success: (products, qty, price) {
+            success: (tnumber, products, qty, price) {
               if (qty == 0) {
                 return SizedBox();
               }
-              return products.any((element) => element.product == data)
+              context
+                  .read<TableBloc>()
+                  .add(TableEvent.addProductToTable(products));
+              return products.any((element) =>
+                      element.product == data && element.tableNumber == tnumber)
                   ? products
-                              .firstWhere((element) => element.product == data)
+                              .firstWhere((element) =>
+                                  element.product == data &&
+                                  element.tableNumber == tnumber)
                               .quantity >
                           0
                       ? Positioned(
@@ -133,8 +143,9 @@ class ProductCard extends StatelessWidget {
                             backgroundColor: AppColors.primary,
                             child: Text(
                               products
-                                  .firstWhere(
-                                      (element) => element.product == data)
+                                  .firstWhere((element) =>
+                                      element.product == data &&
+                                      element.tableNumber == tnumber)
                                   .quantity
                                   .toString(),
                               style: const TextStyle(color: Colors.white),

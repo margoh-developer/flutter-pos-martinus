@@ -30,4 +30,7 @@ class AppColors {
 
   /// disabled = #C8D1E1
   static const Color disabled = Color(0xffC8D1E1);
+
+  ///   brown = #D6CDA4
+  static const Color brown = Color(0xffD6CDA4);
 }
