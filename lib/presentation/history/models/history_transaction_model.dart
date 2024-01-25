@@ -1,8 +1,4 @@
-
-
-
-
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
 
 class HistoryTransactionModel {
   final String name;

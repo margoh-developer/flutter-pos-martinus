@@ -1,7 +1,7 @@
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/string_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/payment_success_dialog.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/string_ext.dart';
+import 'package:CashierPOS/presentation/order/widgets/payment_success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -120,7 +120,8 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
                       namaKasir: namaKasir,
                       transactionTime: DateFormat('yyyy-MM-ddTHH:mm:ss')
                           .format(DateTime.now()),
-                      isSync: false);
+                      isSync: false,
+                      tableNumber: data.first.tableNumber);
                   ProductLocalDatasource.instance.saveOrder(orderModel);
                   context.pop();
                   showDialog(
@@ -136,6 +137,15 @@ class _PaymentCashDialogState extends State<PaymentCashDialog> {
               }, success: (data, qty, total, payment, _, idKasir, mameKasir) {
                 return Button.filled(
                   onPressed: () {
+                    if (priceController!.text.toIntegerFromText < total) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const AlertDialog(
+                            content: Text(
+                          'Nominal bayar tidak boleh lebih kecil dari total',
+                        )),
+                      );
+                    }
                     context.read<OrderBloc>().add(OrderEvent.addNominalBayar(
                           priceController!.text.toIntegerFromText,
                         ));

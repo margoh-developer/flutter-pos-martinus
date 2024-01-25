@@ -1,13 +1,9 @@
-import 'dart:developer';
-
-import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/auth_response_model.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/login/login_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
+import 'package:CashierPOS/core/assets/assets.gen.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:CashierPOS/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/components/buttons.dart';
 import '../../../core/components/custom_text_field.dart';
 import '../../../core/components/spaces.dart';
@@ -41,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 130.0),
               child: Image.asset(
                 Assets.images.logo.path,
+                filterQuality: FilterQuality.high,
+                scale: 2.5,
                 width: 100,
                 height: 100,
               )),

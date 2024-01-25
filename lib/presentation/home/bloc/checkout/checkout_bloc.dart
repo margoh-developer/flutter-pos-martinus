@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/presentation/table/bloc/table/table_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/order_item.dart';
@@ -108,9 +109,15 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       emit(_Success(loadedTableNumber, newCheckout, totalQuantity, totalPrice));
     });
 
+    on<_ClearTableOrder>((event, emit) {
+      tableOrders.remove(loadedTableNumber);
+
+      emit(_Success(loadedTableNumber, [], 0, 0));
+    });
+
     on<_Started>((event, emit) {
       emit(const _Loading());
-      emit(const _Success(0, [], 0, 0));
+      emit(_Success(loadedTableNumber, [], 0, 0));
     });
   }
 }

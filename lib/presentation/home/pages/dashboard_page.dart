@@ -1,16 +1,16 @@
-import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/history/pages/history_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/pages/home_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/setting_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/nav_item.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/pages/list_order_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/pages/order_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/table/pages/table_order_page.dart';
+import 'package:CashierPOS/core/assets/assets.gen.dart';
+import 'package:CashierPOS/core/constants/colors.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:CashierPOS/presentation/auth/pages/login_page.dart';
+import 'package:CashierPOS/presentation/history/pages/history_page.dart';
+import 'package:CashierPOS/presentation/home/bloc/checkout/checkout_bloc.dart';
+import 'package:CashierPOS/presentation/home/pages/home_page.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/setting_page.dart';
+import 'package:CashierPOS/presentation/home/widgets/nav_item.dart';
+import 'package:CashierPOS/presentation/order/pages/list_order_page.dart';
+import 'package:CashierPOS/presentation/order/pages/order_page.dart';
+import 'package:CashierPOS/presentation/table/pages/table_order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +26,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const TableOrderPage(),
-    const ListOrderPage(),
+    // const ListOrderPage(),
     const HistoryPage(),
     const SettingPage(),
   ];
@@ -92,25 +92,25 @@ class _DashboardPageState extends State<DashboardPage> {
               isActive: _selectedIndex == 0,
               onTap: () => _onItemTapped(0),
             ),
-            NavItem(
-                iconPath: Assets.icons.orders.path,
-                label: 'Orders',
-                isActive: _selectedIndex == 1,
-                onTap: () {
-                  _onItemTapped(1);
-                  // context.push(const OrdersPage());
-                }),
+            // NavItem(
+            //     iconPath: Assets.icons.orders.path,
+            //     label: 'Orders',
+            //     isActive: _selectedIndex == 1,
+            //     onTap: () {
+            //       _onItemTapped(1);
+            //       // context.push(const OrdersPage());
+            //     }),
             NavItem(
               iconPath: Assets.icons.payments.path,
               label: 'Histories',
-              isActive: _selectedIndex == 2,
-              onTap: () => _onItemTapped(2),
+              isActive: _selectedIndex == 1,
+              onTap: () => _onItemTapped(1),
             ),
             NavItem(
               iconPath: Assets.icons.dashboard.path,
               label: 'Settings',
-              isActive: _selectedIndex == 3,
-              onTap: () => _onItemTapped(3),
+              isActive: _selectedIndex == 2,
+              onTap: () => _onItemTapped(2),
             ),
           ],
         ),

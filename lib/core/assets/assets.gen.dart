@@ -48,6 +48,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/image.svg
   SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
 
+  /// File path: assets/icons/instagram.png
+  AssetGenImage get instagram =>
+      const AssetGenImage('assets/icons/instagram.png');
+
   /// File path: assets/icons/orders.svg
   SvgGenImage get orders => const SvgGenImage('assets/icons/orders.svg');
 
@@ -64,7 +68,7 @@ class $AssetsIconsGen {
   SvgGenImage get snack => const SvgGenImage('assets/icons/snack.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
         allCategories,
         cash,
         dashboard,
@@ -76,6 +80,7 @@ class $AssetsIconsGen {
         history,
         home,
         image,
+        instagram,
         orders,
         payments,
         print,

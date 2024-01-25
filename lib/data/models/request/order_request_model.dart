@@ -1,5 +1,7 @@
-import 'package:meta/meta.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
+import 'package:meta/meta.dart';
 
 class OrderRequestModel {
   final String transactionTime;
@@ -8,6 +10,7 @@ class OrderRequestModel {
   final int totalItem;
   final String paymentMethod;
   final List<OrderItemModel> orderItems;
+  final int table_number;
 
   OrderRequestModel(
       {required this.transactionTime,
@@ -15,7 +18,8 @@ class OrderRequestModel {
       required this.totalPrice,
       required this.totalItem,
       required this.orderItems,
-      this.paymentMethod = 'cash'});
+      this.paymentMethod = 'cash',
+      this.table_number = 0});
 
   factory OrderRequestModel.fromJson(String str) =>
       OrderRequestModel.fromMap(json.decode(str));
@@ -29,6 +33,7 @@ class OrderRequestModel {
         totalPrice: json["total_price"],
         totalItem: json["total_item"],
         paymentMethod: json["payment_method"],
+        table_number: json["table_number"],
         orderItems: List<OrderItemModel>.from(
             json["order_items"].map((x) => OrderItemModel.fromMap(x))),
       );
@@ -39,6 +44,7 @@ class OrderRequestModel {
         "total_price": totalPrice,
         "total_item": totalItem,
         "payment_method": paymentMethod,
+        "table_number": table_number,
         "order_items": List<dynamic>.from(orderItems.map((x) => x.toMap())),
       };
 }
@@ -52,7 +58,6 @@ class OrderItemModel {
     required this.productId,
     required this.quantity,
     required this.totalPrice,
-    
   });
 
   factory OrderItemModel.fromJson(String str) =>

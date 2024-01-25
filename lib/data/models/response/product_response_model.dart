@@ -66,8 +66,8 @@ class Product {
   String toJson() => json.encode(toMap());
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        id: json["id"],
-        productId: json["product_id"],
+        // id: json["id"],
+        productId: json["id"],
         name: json["name"],
         description: json["description"] ?? '',
         price: json["price"],
@@ -82,6 +82,17 @@ class Product {
         //         : false,
         // createdAt: DateTime.parse(json["created_at"]),
         // updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  factory Product.fromMapLocal(Map<String, dynamic> json) => Product(
+        productId: json["product_id"],
+        name: json["name"],
+        description: json["description"] ?? '',
+        price: json["price"],
+        stock: json["stock"],
+        category: json["category"],
+        image: json["image"] ?? '',
+        isBestSeller: json["is_best_seller"] == 1 ? true : false,
       );
 
   Map<String, dynamic> toMap() => {
@@ -106,7 +117,7 @@ class Product {
         "category": category,
         "image": image,
         "is_best_seller": isBestSeller ? 1 : 0,
-        "product_id": id,
+        "product_id": productId,
       };
 
   Product copyWith({

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/edit_product_page.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/edit_product_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/components/buttons.dart';
@@ -17,6 +17,8 @@ class MenuProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print("ID ${data.id}");
+    // print("PRoduct ${data.productId}");
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: ShapeDecoration(
@@ -58,7 +60,7 @@ class MenuProductItem extends StatelessWidget {
                 ),
                 const SpaceHeight(5.0),
                 Text(
-                  data.category,
+                  data.category.toUpperCase(),
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
@@ -73,40 +75,28 @@ class MenuProductItem extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => SimpleDialog(
-                                title: Text("${data.name}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                backgroundColor: AppColors.primaryLight,
-                                // icon: const Icon(Icons.info),
-                                // title: Text("${data.name}"),
+                                title: Row(
+                                  children: [
+                                    Text("${data.name}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Spacer(),
+                                    IconButton(
+                                        alignment: Alignment.centerRight,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        icon: Icon(Icons.close)),
+                                  ],
+                                ),
+                                backgroundColor: AppColors.white,
                                 contentPadding: EdgeInsets.all(16),
                                 children: [
-                                  //Stack(children: [
-                                  // Positioned(
-                                  //   top: 00,
-                                  //   right: 0,
-                                  //   child: GestureDetector(
-                                  //     onTap: () {
-                                  //       Navigator.of(context).pop();
-                                  //     },
-                                  //     child: Icon(Icons.close),
-                                  //   ),
-                                  // ),
                                   Column(
                                     children: [
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Icon(Icons.close),
-                                            ),
-                                          ]),
                                       Container(
+                                        width: 200,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(35)),
@@ -126,14 +116,21 @@ class MenuProductItem extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      SpaceHeight(20),
+                                      SpaceHeight(50),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('Nama Product :'),
-                                          Text('${data.name.toString()}'),
+                                          Text(
+                                            '${data.name.toString()}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ],
+                                      ),
+                                      Divider(
+                                        height: 20,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -141,15 +138,25 @@ class MenuProductItem extends StatelessWidget {
                                         children: [
                                           Text('Harga :'),
                                           Text(
-                                              '${data.price.currencyFormatRp.toString()}'),
+                                            '${data.price.currencyFormatRp.toString()}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ],
+                                      ),
+                                      Divider(
+                                        height: 20,
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('Stock :'),
-                                          Text('${data.stock.toString()}'),
+                                          Text(
+                                            '${data.stock.toString()}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ],
                                       ),
                                     ],

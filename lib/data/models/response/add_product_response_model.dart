@@ -1,8 +1,6 @@
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
-import 'package:meta/meta.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
 import 'dart:convert';
 
-  
 class AddProductResponseModel {
   final bool success;
   final String message;

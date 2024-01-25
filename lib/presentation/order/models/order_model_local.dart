@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import '../../../data/models/request/order_request_model.dart';
 import '../../home/models/order_item.dart';
 
-class OrderModel {
+class OrderModelLocal {
   final int? id;
   final String paymentMethod;
   final int nominalBayar;
-  List<OrderItem>? orders;
+  List<OrderItemModel>? orders;
   final int totalQuantity;
   final int totalPrice;
   final int idKasir;
@@ -15,7 +16,7 @@ class OrderModel {
   final String transactionTime;
   final bool isSync;
   final int? tableNumber;
-  OrderModel({
+  OrderModelLocal({
     this.id,
     required this.paymentMethod,
     required this.nominalBayar,
@@ -64,8 +65,8 @@ class OrderModel {
     };
   }
 
-  factory OrderModel.fromLocalMap(Map<String, dynamic> map) {
-    return OrderModel(
+  factory OrderModelLocal.fromLocalMap(Map<String, dynamic> map) {
+    return OrderModelLocal(
       paymentMethod: map['payment_method'] ?? '',
       nominalBayar: map['nominal']?.toInt() ?? 0,
       // orders: [],
@@ -80,12 +81,12 @@ class OrderModel {
     );
   }
 
-  factory OrderModel.fromMap(Map<String, dynamic> map) {
-    return OrderModel(
+  factory OrderModelLocal.fromMap(Map<String, dynamic> map) {
+    return OrderModelLocal(
       paymentMethod: map['paymentMethod'] ?? '',
       nominalBayar: map['nominalBayar']?.toInt() ?? 0,
       orders:
-          List<OrderItem>.from(map['orders']?.map((x) => OrderItem.fromMap(x))),
+          List<OrderItemModel>.from(map['orders']?.map((x) => OrderItemModel.fromMap(x))),
       totalQuantity: map['totalQuantity']?.toInt() ?? 0,
       totalPrice: map['totalPrice']?.toInt() ?? 0,
       idKasir: map['idKasir']?.toInt() ?? 0,
@@ -99,6 +100,6 @@ class OrderModel {
 
   String toJson() => json.encode(toMap());
 
-  factory OrderModel.fromJson(String source) =>
-      OrderModel.fromMap(json.decode(source));
+  factory OrderModelLocal.fromJson(String source) =>
+      OrderModelLocal.fromMap(json.decode(source));
 }

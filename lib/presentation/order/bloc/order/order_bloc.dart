@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../home/models/order_item.dart';

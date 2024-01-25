@@ -1,21 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/pages/order_page.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/presentation/order/pages/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
-import 'package:fic1_pos_flutter_martinus/core/components/menu_button.dart';
-import 'package:fic1_pos_flutter_martinus/core/components/search_input.dart';
-import 'package:fic1_pos_flutter_martinus/core/components/spaces.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/product/product_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/models/product_category.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/models/product_model.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/product_card.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/widgets/product_empty.dart';
+import 'package:CashierPOS/core/assets/assets.gen.dart';
+import 'package:CashierPOS/core/components/menu_button.dart';
+import 'package:CashierPOS/core/components/search_input.dart';
+import 'package:CashierPOS/core/components/spaces.dart';
+import 'package:CashierPOS/core/constants/colors.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/presentation/home/bloc/product/product_bloc.dart';
+import 'package:CashierPOS/presentation/home/models/product_category.dart';
+import 'package:CashierPOS/presentation/home/models/product_model.dart';
+import 'package:CashierPOS/presentation/home/widgets/product_card.dart';
+import 'package:CashierPOS/presentation/home/widgets/product_empty.dart';
 
 import '../../../data/datasources/product_local_datasource.dart';
 

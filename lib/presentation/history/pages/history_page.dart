@@ -1,11 +1,8 @@
+import 'package:CashierPOS/presentation/history/widgets/history_transaction_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/components/spaces.dart';
-
 import '../bloc/history/history_bloc.dart';
-import '../models/history_transaction_model.dart';
-
 import '../widgets/history_transaction_card.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -45,6 +42,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 child: CircularProgressIndicator(),
               );
             }, success: (data) {
+              // print(data[0].orders);
               if (data.isEmpty) {
                 return const Center(
                   child: Text('No data'),
@@ -57,6 +55,14 @@ class _HistoryPageState extends State<HistoryPage> {
                 itemBuilder: (context, index) => HistoryTransactionCard(
                   padding: paddingHorizontal,
                   data: data[index],
+                  // onTap: () {
+                  //   // showDialog(
+                  //   //     context: context,
+                  //   //     builder: (context) {
+                  //   //       return HistoryTransactionDialog(
+                  //   //           orderId: data[index].id!);
+                  //   //     });
+                  // },
                 ),
               );
             });

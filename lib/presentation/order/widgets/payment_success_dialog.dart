@@ -1,6 +1,6 @@
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/date_time_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/date_time_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
@@ -11,6 +11,7 @@ import '../../../core/components/spaces.dart';
 import '../../../data/dataoutputs/cwb_print.dart';
 import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../../home/pages/dashboard_page.dart';
+import '../../table/bloc/table/table_bloc.dart';
 import '../bloc/order/order_bloc.dart';
 
 class PaymentSuccessDialog extends StatelessWidget {
@@ -18,6 +19,7 @@ class PaymentSuccessDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int tableNumber = 0;
     return AlertDialog(
       scrollable: true,
       title: Column(
@@ -40,12 +42,27 @@ class PaymentSuccessDialog extends StatelessWidget {
             orElse: () => SizedBox.shrink(),
             success:
                 (data, qty, total, paymentType, nominal, idKasir, nameKasir) {
-              context.read<CheckoutBloc>().add(const CheckoutEvent.started());
+              if (data.isNotEmpty) {
+                tableNumber = data.first.tableNumber;
+              }
+              print(tableNumber);
+              context
+                  .read<CheckoutBloc>()
+                  .add(const CheckoutEvent.clearTableOrder());
+              print(tableNumber);
+              context
+                  .read<TableBloc>()
+                  .add(TableEvent.clearTableOrderItems(tableNumber));
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SpaceHeight(12.0),
+                  _LabelValue(
+                    label: 'PESANAN MEJA NOMOR',
+                    value: tableNumber.toString(),
+                  ),
+                  const Divider(height: 36.0),
                   _LabelValue(
                     label: 'METODE PEMBAYARAN',
                     value: paymentType == "cash" ? "Tunai" : "QRIS",
@@ -62,6 +79,13 @@ class PaymentSuccessDialog extends StatelessWidget {
                         ? total.currencyFormatRp
                         : nominal.currencyFormatRp,
                   ),
+                  (nominal > total) ? const Divider(height: 36.0) : SizedBox(),
+                  (nominal > total)
+                      ? _LabelValue(
+                          label: 'KEMBALIAN',
+                          value: (nominal - total).currencyFormatRp,
+                        )
+                      : SizedBox(),
                   const Divider(height: 36.0),
                   _LabelValue(
                     label: 'WAKTU PEMBAYARAN',
@@ -77,7 +101,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                             context
                                 .read<OrderBloc>()
                                 .add(const OrderEvent.started());
-                            context.pushReplacement(const DashboardPage());
+                            context.pushAndRemoveUntil(
+                                const DashboardPage(), (route) => false);
+                            // context.push(const DashboardPage());
                           },
                           label: 'Selesai',
                           fontSize: 13,
@@ -87,9 +113,19 @@ class PaymentSuccessDialog extends StatelessWidget {
                       Flexible(
                         child: Button.outlined(
                           onPressed: () async {
-                            final ticket = await CwbPrint.instance.printOrder(data, qty, total, paymentType, nominal,  nameKasir);
+                            print(DateTime.now().toString());
+                            final ticket = await CwbPrint.instance.printOrder(
+                              tableNumber,
+                              data,
+                              qty,
+                              total,
+                              paymentType,
+                              nominal,
+                              nameKasir,
+                              DateTime.now().toString(),
+                            );
                             final result =
-                            await PrintBluetoothThermal.writeBytes(ticket);
+                                await PrintBluetoothThermal.writeBytes(ticket);
                           },
                           label: 'Print',
                           icon: Assets.icons.print.svg(),

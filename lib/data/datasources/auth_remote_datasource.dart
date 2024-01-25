@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/variables.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/auth_response_model.dart';
+import 'package:CashierPOS/core/constants/variables.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/data/models/response/auth_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteDatasource {

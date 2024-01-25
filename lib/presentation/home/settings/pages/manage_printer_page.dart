@@ -1,5 +1,5 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
@@ -116,6 +116,9 @@ class _ManagePrinterPageState extends State<ManagePrinterPage> {
   }
 
   Future<void> connect(String mac) async {
+    if (connected) {
+      await disconnect();
+    }
     setState(() {
       _progress = true;
       _msjprogress = "Connecting...";
@@ -124,7 +127,13 @@ class _ManagePrinterPageState extends State<ManagePrinterPage> {
     final bool result =
         await PrintBluetoothThermal.connect(macPrinterAddress: mac);
     print("state conected $result");
-    if (result) connected = true;
+    // if (result) connected = true;
+    if (result) {
+      connected = true;
+      _msj = "Connected successfully";
+    } else {
+      _msj = "Failed to connect";
+    }
     setState(() {
       _progress = false;
     });

@@ -1,15 +1,15 @@
-import 'package:fic1_pos_flutter_martinus/core/assets/assets.gen.dart';
-import 'package:fic1_pos_flutter_martinus/core/components/menu_button.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/product_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/auth/bloc/logout/logout_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/auth/pages/login_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/product/product_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/manage_product.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/save_server_key_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/pages/sync_data.page.dart';
+import 'package:CashierPOS/core/assets/assets.gen.dart';
+import 'package:CashierPOS/core/components/menu_button.dart';
+import 'package:CashierPOS/core/constants/colors.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/data/datasources/product_local_datasource.dart';
+import 'package:CashierPOS/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:CashierPOS/presentation/auth/pages/login_page.dart';
+import 'package:CashierPOS/presentation/home/bloc/product/product_bloc.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/manage_product.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/save_server_key_page.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/sync_data.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,6 +62,14 @@ class _SettingPageState extends State<SettingPage> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
+          // Image Logo
+          Image.asset(
+            Assets.images.logo.path,
+            height: 150,
+          ),
+          Divider(
+            height: 20,
+          ),
           Row(
             children: [
               MenuButton(
@@ -206,6 +214,9 @@ class _SettingPageState extends State<SettingPage> {
           //         child: Text("Logout"));
           //   },
           // ),
+          Divider(
+            height: 20,
+          ),
         ],
       ),
     );

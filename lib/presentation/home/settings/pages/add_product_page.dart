@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/string_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/string_ext.dart';
+import 'package:CashierPOS/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';

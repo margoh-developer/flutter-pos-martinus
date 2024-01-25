@@ -3,9 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/bloc/checkout/checkout_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/models/order_item.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/presentation/home/bloc/checkout/checkout_bloc.dart';
+import 'package:CashierPOS/presentation/home/models/order_item.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';

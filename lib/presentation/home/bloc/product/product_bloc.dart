@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/product_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/request/product_request_model.dart';
+import 'package:CashierPOS/data/datasources/product_local_datasource.dart';
+import 'package:CashierPOS/data/models/request/product_request_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:fic1_pos_flutter_martinus/data/datasources/product_remote_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/data/datasources/product_remote_datasource.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'product_bloc.freezed.dart';
@@ -77,7 +77,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         },
       );
 
-      // emit(_Success(products));
+      emit(_Success(products));
     });
 
     on<_EditProduct>((event, emit) async {
@@ -86,7 +86,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
       if (event.image != null) {
         requestData = ProductRequestModel(
-            productId: event.product.id,
+            productId: event.product.productId,
             name: event.product.name,
             price: event.product.price,
             stock: event.product.stock,
@@ -95,28 +95,50 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             isBestSeller: event.product.isBestSeller ? 1 : 0);
       } else {
         requestData = ProductRequestModel(
-            productId: event.product.id,
+            productId: event.product.productId,
             name: event.product.name,
             price: event.product.price,
             stock: event.product.stock,
             category: event.product.category,
             isBestSeller: event.product.isBestSeller ? 1 : 0);
       }
+
+      print("Product ID = ${event.product.productId!}");
       print(requestData);
 
       final updatedProduct =
           await _productRemoteDatasource.editProduct(requestData);
 
-      print(updatedProduct);
+      Product localUpdatedProduct = Product(
+        productId: event.product.productId,
+        name: event.product.name,
+        price: event.product.price,
+        stock: event.product.stock,
+        category: event.product.category,
+        isBestSeller: event.product.isBestSeller,
+        image: event.image?.path,
+      );
+
+      int index = products.indexWhere((product) {
+        print(
+            'product.id: ${product.productId}, id: ${event.product.productId}');
+        return product.productId ==
+            event.product.productId
+                ?.toInt(); // Convert id to the appropriate type
+      });
+      print(index);
+
+      ProductLocalDatasource.instance.updateProduct(localUpdatedProduct);
+      products[index] = localUpdatedProduct;
+
       updatedProduct.fold(
         (l) => emit(_Error(l)),
         (r) {
-          // products.add(r.data);
-          ProductLocalDatasource.instance.updateProduct(r.data);
-
           emit(_Success(products));
         },
       );
+
+      emit(_Success(products));
     });
   }
 }

@@ -1,4 +1,4 @@
-import 'package:fic1_pos_flutter_martinus/data/models/response/auth_response_model.dart';
+import 'package:CashierPOS/data/models/response/auth_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthLocalDataSource {
@@ -26,7 +26,6 @@ class AuthLocalDataSource {
     return authData != null;
   }
 
-
   Future<void> saveMidtransServerKey(String serverKey) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('server_key', serverKey);
@@ -37,5 +36,23 @@ class AuthLocalDataSource {
     final prefs = await SharedPreferences.getInstance();
     final serverKey = prefs.getString('server_key');
     return serverKey ?? '';
+  }
+
+  Future<String> setTableQty() async {
+    final prefs = await SharedPreferences.getInstance();
+    final tableQty = prefs.getString('table_qty');
+    return tableQty ?? '';
+  }
+
+  Future<void> saveBaseURL(String baseURL) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('base_url', baseURL);
+  }
+
+  //get midtrans server key
+  Future<String> getBaseURL() async {
+    final prefs = await SharedPreferences.getInstance();
+    final baseURL = prefs.getString('base_url');
+    return baseURL ?? '';
   }
 }

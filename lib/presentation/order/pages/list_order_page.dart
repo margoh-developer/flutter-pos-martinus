@@ -1,4 +1,4 @@
-import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/list_order_card.dart';
+import 'package:CashierPOS/presentation/order/widgets/list_order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

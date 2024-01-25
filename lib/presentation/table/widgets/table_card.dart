@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:fic1_pos_flutter_martinus/presentation/table/bloc/table/table_bloc.dart';
+
 import 'package:flutter/material.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/constants/colors.dart';
 import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../../home/models/order_item.dart';
+import '../bloc/table/table_bloc.dart';
 
 class TableCard extends StatefulWidget {
   final int index;
@@ -42,15 +44,15 @@ class _TableCardState extends State<TableCard> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-        margin: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          // borderRadius: BorderRadius.circular(45.0),
-          color: AppColors.primary,
-        ),
-        child: GestureDetector(
-          onTap: widget.onTap,
+      GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          margin: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            // borderRadius: BorderRadius.circular(45.0),
+            color: AppColors.primary,
+          ),
           child: Center(
             child: Row(
               // alignment: Alignment.center,

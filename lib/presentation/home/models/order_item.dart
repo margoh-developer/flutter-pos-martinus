@@ -43,6 +43,7 @@ class OrderItem {
   }
 
   factory OrderItem.fromMap(Map<String, dynamic> map) {
+    
     return OrderItem(
       product: Product.fromMap(map['product'] as Map<String, dynamic>),
       quantity: map['quantity'] as int,

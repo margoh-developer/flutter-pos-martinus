@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:fic1_pos_flutter_martinus/core/components/spaces.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/colors.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/components/spaces.dart';
+import 'package:CashierPOS/core/constants/colors.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/widgets/menu_product_item.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/presentation/home/settings/widgets/menu_product_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';

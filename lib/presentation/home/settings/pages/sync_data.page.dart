@@ -1,6 +1,6 @@
-import 'package:fic1_pos_flutter_martinus/core/components/spaces.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/settings/bloc/sync_order/sync_order_bloc.dart';
+import 'package:CashierPOS/core/components/spaces.dart';
+import 'package:CashierPOS/presentation/home/pages/dashboard_page.dart';
+import 'package:CashierPOS/presentation/home/settings/bloc/sync_order/sync_order_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

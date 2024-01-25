@@ -1,10 +1,11 @@
-import 'package:fic1_pos_flutter_martinus/core/components/spaces.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
 import '../constants/colors.dart';
+import 'spaces.dart';
 
 class MenuButton extends StatelessWidget {
   final String iconPath;

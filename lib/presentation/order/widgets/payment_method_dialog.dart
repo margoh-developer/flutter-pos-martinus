@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/string_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/payment_success_dialog.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/string_ext.dart';
+import 'package:CashierPOS/presentation/order/widgets/payment_success_dialog.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';

@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:fic1_pos_flutter_martinus/data/datasources/order_remote_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/request/order_request_model.dart';
+import 'package:CashierPOS/data/datasources/order_remote_datasource.dart';
+import 'package:CashierPOS/data/models/request/order_request_model.dart';
 
 import '../../../../../data/datasources/product_local_datasource.dart';
 
@@ -33,6 +33,7 @@ class SyncOrderBloc extends Bloc<SyncOrderEvent, SyncOrderState> {
             totalPrice: order.totalPrice,
             kasirId: order.idKasir,
             paymentMethod: order.paymentMethod,
+            table_number: order.tableNumber ?? 0,
             orderItems: orderItems
             // .map((e) => OrderItemModel(
             //       productId: e.product.id!,

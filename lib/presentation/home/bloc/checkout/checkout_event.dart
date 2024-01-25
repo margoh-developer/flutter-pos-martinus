@@ -12,4 +12,7 @@ class CheckoutEvent with _$CheckoutEvent {
 
   const factory CheckoutEvent.deleteCheckout(Product product) =
       _DeleteCheckout;
+
+      const factory CheckoutEvent.clearTableOrder() =
+      _ClearTableOrder;
 }

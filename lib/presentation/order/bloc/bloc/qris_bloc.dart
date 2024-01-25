@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/midtrans_remote_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/qris_response_model.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/qris_status_response_model.dart';
+import 'package:CashierPOS/data/datasources/midtrans_remote_datasource.dart';
+import 'package:CashierPOS/data/models/response/qris_response_model.dart';
+import 'package:CashierPOS/data/models/response/qris_status_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'qris_event.dart';

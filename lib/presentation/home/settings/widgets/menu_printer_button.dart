@@ -1,4 +1,4 @@
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';

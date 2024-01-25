@@ -1,20 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:fic1_pos_flutter_martinus/presentation/home/models/order_item.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/order/order_bloc.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/order/widgets/payment_method_dialog.dart';
+import 'package:CashierPOS/presentation/home/models/order_item.dart';
+
+import 'package:CashierPOS/presentation/order/widgets/payment_method_dialog.dart';
 
 import '../../../core/assets/assets.gen.dart';
-import '../../../core/components/menu_button.dart';
+
 import '../../../core/components/spaces.dart';
 import '../../home/bloc/checkout/checkout_bloc.dart';
-import '../models/order_model.dart';
+
+import '../../table/bloc/table/table_bloc.dart';
 import '../widgets/order_card.dart';
-import '../widgets/payment_cash_dialog.dart';
-import '../widgets/payment_qris_dialog.dart';
+
 import '../widgets/process_button.dart';
 
 class OrderPage extends StatefulWidget {
@@ -68,6 +68,9 @@ class _OrderPageState extends State<OrderPage> {
           IconButton(
             onPressed: () {
               context.read<CheckoutBloc>().add(CheckoutEvent.started());
+              context
+                  .read<TableBloc>()
+                  .add(TableEvent.clearTableOrderItems(widget.tableNumber));
             },
             icon: Assets.icons.delete.svg(),
           ),

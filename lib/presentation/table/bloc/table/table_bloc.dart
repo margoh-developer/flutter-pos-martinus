@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../home/bloc/checkout/checkout_bloc.dart';
@@ -20,6 +20,12 @@ class TableBloc extends Bloc<TableEvent, TableState> {
       final tableNumber = event.orderItems.first.tableNumber;
       _tableOrders[tableNumber] = orders;
 
+      emit(TableState.loaded(_tableOrders));
+    });
+
+    on<_ClearTableOrderItems>((event, emit) {
+      emit(TableState.loading());
+      _tableOrders.remove(event.tableNumber);
       emit(TableState.loaded(_tableOrders));
     });
   }

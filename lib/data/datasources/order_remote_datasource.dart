@@ -1,6 +1,6 @@
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_remote_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/request/order_request_model.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/data/datasources/auth_remote_datasource.dart';
+import 'package:CashierPOS/data/models/request/order_request_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/constants/variables.dart';

@@ -1,15 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:fic1_pos_flutter_martinus/core/constants/variables.dart';
+import 'package:CashierPOS/core/constants/variables.dart';
+import 'package:CashierPOS/presentation/home/settings/pages/manage_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/int_ext.dart';
-import 'package:fic1_pos_flutter_martinus/core/extensions/string_ext.dart';
-import 'package:fic1_pos_flutter_martinus/presentation/home/pages/dashboard_page.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/int_ext.dart';
+import 'package:CashierPOS/core/extensions/string_ext.dart';
+import 'package:CashierPOS/presentation/home/pages/dashboard_page.dart';
 
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/custom_dropdown.dart';
@@ -161,13 +162,12 @@ class _EditProductPageState extends State<EditProductPage> {
                 success: (_) {
                   // Navigator.pop(context);
                   // context.read<ProductBloc>().add(ProductEvent.fetch());
+
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DashboardPage()));
-                  // Future.delayed(const Duration(milliseconds: 100), () {
-                  //   Navigator.pop(context);
-                  // });
+                 
                 },
               );
             },
@@ -179,49 +179,6 @@ class _EditProductPageState extends State<EditProductPage> {
               }, loading: () {
                 return const Center(
                   child: CircularProgressIndicator(),
-                );
-              }, error: (message) {
-                // print(message);
-                return Button.filled(
-                  onPressed: () {
-                    final Product product;
-                    final String name = nameController.text;
-                    final int price = priceController.text.toIntegerFromText;
-                    final int stock = stockController.text.toIntegerFromText;
-                    if (imageFile == null) {
-                      product = Product(
-                        name: name,
-                        price: price,
-                        stock: stock,
-                        category: category,
-                        isBestSeller: isBestSeller,
-                        id: widget.data.id,
-                      );
-                      context
-                          .read<ProductBloc>()
-                          .add(ProductEvent.editProduct(product));
-                    } else {
-                      product = Product(
-                        name: name,
-                        price: price,
-                        stock: stock,
-                        category: category,
-                        isBestSeller: isBestSeller,
-                        id: widget.data.id,
-                        image: imageFile!.path,
-                      );
-                      context
-                          .read<ProductBloc>()
-                          .add(ProductEvent.editProduct(product, imageFile!));
-                    }
-
-                    // context
-                    //     .read<ProductBloc>()
-                    //     .add(ProductEvent.editProduct(product));
-
-                    //navigate to home
-                  },
-                  label: 'Simpan',
                 );
               }, success: (_) {
                 return Button.filled(
@@ -237,7 +194,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         stock: stock,
                         category: category,
                         isBestSeller: isBestSeller,
-                        id: widget.data.productId,
+                        productId: widget.data.productId,
                       );
                       context
                           .read<ProductBloc>()
@@ -249,7 +206,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         stock: stock,
                         category: category,
                         isBestSeller: isBestSeller,
-                        id: widget.data.productId,
+                        productId: widget.data.productId,
                         image: imageFile!.path,
                       );
                       context

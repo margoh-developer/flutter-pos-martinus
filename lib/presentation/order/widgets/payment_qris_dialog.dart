@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:fic1_pos_flutter_martinus/presentation/order/bloc/bloc/qris_bloc.dart';
+import 'package:CashierPOS/presentation/order/bloc/bloc/qris_bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fic1_pos_flutter_martinus/core/extensions/build_context_ext.dart';
+import 'package:CashierPOS/core/extensions/build_context_ext.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -111,7 +111,8 @@ class _PaymentQrisDialogState extends State<PaymentQrisDialog> {
                                 transactionTime:
                                     DateFormat('yyyy-MM-ddTHH:mm:ss')
                                         .format(DateTime.now()),
-                                isSync: false);
+                                isSync: false,
+                                tableNumber: data.first.tableNumber);
                             ProductLocalDatasource.instance
                                 .saveOrder(orderModel);
                             context.pop();

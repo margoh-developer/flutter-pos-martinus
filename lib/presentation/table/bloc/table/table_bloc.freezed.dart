@@ -20,18 +20,21 @@ mixin _$TableEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<OrderItem> orderItems) addProductToTable,
+    required TResult Function(int tableNumber) clearTableOrderItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult? Function(int tableNumber)? clearTableOrderItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult Function(int tableNumber)? clearTableOrderItems,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$TableEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_AddProductToTable value) addProductToTable,
+    required TResult Function(_ClearTableOrderItems value) clearTableOrderItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_AddProductToTable value)? addProductToTable,
+    TResult? Function(_ClearTableOrderItems value)? clearTableOrderItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_AddProductToTable value)? addProductToTable,
+    TResult Function(_ClearTableOrderItems value)? clearTableOrderItems,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<OrderItem> orderItems) addProductToTable,
+    required TResult Function(int tableNumber) clearTableOrderItems,
   }) {
     return started();
   }
@@ -123,6 +130,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult? Function(int tableNumber)? clearTableOrderItems,
   }) {
     return started?.call();
   }
@@ -132,6 +140,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult Function(int tableNumber)? clearTableOrderItems,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -145,6 +154,7 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_AddProductToTable value) addProductToTable,
+    required TResult Function(_ClearTableOrderItems value) clearTableOrderItems,
   }) {
     return started(this);
   }
@@ -154,6 +164,7 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_AddProductToTable value)? addProductToTable,
+    TResult? Function(_ClearTableOrderItems value)? clearTableOrderItems,
   }) {
     return started?.call(this);
   }
@@ -163,6 +174,7 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_AddProductToTable value)? addProductToTable,
+    TResult Function(_ClearTableOrderItems value)? clearTableOrderItems,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -251,6 +263,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<OrderItem> orderItems) addProductToTable,
+    required TResult Function(int tableNumber) clearTableOrderItems,
   }) {
     return addProductToTable(orderItems);
   }
@@ -260,6 +273,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult? Function(int tableNumber)? clearTableOrderItems,
   }) {
     return addProductToTable?.call(orderItems);
   }
@@ -269,6 +283,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult Function(int tableNumber)? clearTableOrderItems,
     required TResult orElse(),
   }) {
     if (addProductToTable != null) {
@@ -282,6 +297,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_AddProductToTable value) addProductToTable,
+    required TResult Function(_ClearTableOrderItems value) clearTableOrderItems,
   }) {
     return addProductToTable(this);
   }
@@ -291,6 +307,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_AddProductToTable value)? addProductToTable,
+    TResult? Function(_ClearTableOrderItems value)? clearTableOrderItems,
   }) {
     return addProductToTable?.call(this);
   }
@@ -300,6 +317,7 @@ class _$AddProductToTableImpl implements _AddProductToTable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_AddProductToTable value)? addProductToTable,
+    TResult Function(_ClearTableOrderItems value)? clearTableOrderItems,
     required TResult orElse(),
   }) {
     if (addProductToTable != null) {
@@ -317,6 +335,149 @@ abstract class _AddProductToTable implements TableEvent {
   @JsonKey(ignore: true)
   _$$AddProductToTableImplCopyWith<_$AddProductToTableImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearTableOrderItemsImplCopyWith<$Res> {
+  factory _$$ClearTableOrderItemsImplCopyWith(_$ClearTableOrderItemsImpl value,
+          $Res Function(_$ClearTableOrderItemsImpl) then) =
+      __$$ClearTableOrderItemsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int tableNumber});
+}
+
+/// @nodoc
+class __$$ClearTableOrderItemsImplCopyWithImpl<$Res>
+    extends _$TableEventCopyWithImpl<$Res, _$ClearTableOrderItemsImpl>
+    implements _$$ClearTableOrderItemsImplCopyWith<$Res> {
+  __$$ClearTableOrderItemsImplCopyWithImpl(_$ClearTableOrderItemsImpl _value,
+      $Res Function(_$ClearTableOrderItemsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tableNumber = null,
+  }) {
+    return _then(_$ClearTableOrderItemsImpl(
+      null == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ClearTableOrderItemsImpl implements _ClearTableOrderItems {
+  const _$ClearTableOrderItemsImpl(this.tableNumber);
+
+  @override
+  final int tableNumber;
+
+  @override
+  String toString() {
+    return 'TableEvent.clearTableOrderItems(tableNumber: $tableNumber)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClearTableOrderItemsImpl &&
+            (identical(other.tableNumber, tableNumber) ||
+                other.tableNumber == tableNumber));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, tableNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClearTableOrderItemsImplCopyWith<_$ClearTableOrderItemsImpl>
+      get copyWith =>
+          __$$ClearTableOrderItemsImplCopyWithImpl<_$ClearTableOrderItemsImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(List<OrderItem> orderItems) addProductToTable,
+    required TResult Function(int tableNumber) clearTableOrderItems,
+  }) {
+    return clearTableOrderItems(tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult? Function(int tableNumber)? clearTableOrderItems,
+  }) {
+    return clearTableOrderItems?.call(tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(List<OrderItem> orderItems)? addProductToTable,
+    TResult Function(int tableNumber)? clearTableOrderItems,
+    required TResult orElse(),
+  }) {
+    if (clearTableOrderItems != null) {
+      return clearTableOrderItems(tableNumber);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddProductToTable value) addProductToTable,
+    required TResult Function(_ClearTableOrderItems value) clearTableOrderItems,
+  }) {
+    return clearTableOrderItems(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddProductToTable value)? addProductToTable,
+    TResult? Function(_ClearTableOrderItems value)? clearTableOrderItems,
+  }) {
+    return clearTableOrderItems?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddProductToTable value)? addProductToTable,
+    TResult Function(_ClearTableOrderItems value)? clearTableOrderItems,
+    required TResult orElse(),
+  }) {
+    if (clearTableOrderItems != null) {
+      return clearTableOrderItems(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearTableOrderItems implements TableEvent {
+  const factory _ClearTableOrderItems(final int tableNumber) =
+      _$ClearTableOrderItemsImpl;
+
+  int get tableNumber;
+  @JsonKey(ignore: true)
+  _$$ClearTableOrderItemsImplCopyWith<_$ClearTableOrderItemsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

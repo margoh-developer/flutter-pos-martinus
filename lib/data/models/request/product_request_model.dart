@@ -35,7 +35,7 @@ class ProductRequestModel {
       'stock': stock.toString(),
       'category': category,
       'is_best_seller': isBestSeller.toString(),
-      // 'product_id': productId.toString(),
+      'product_id': productId.toString(),
     };
   }
 

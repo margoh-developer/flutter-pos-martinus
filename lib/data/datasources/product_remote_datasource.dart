@@ -1,13 +1,10 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
-import 'package:fic1_pos_flutter_martinus/core/constants/variables.dart';
-import 'package:fic1_pos_flutter_martinus/data/datasources/auth_local_datasource.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/request/product_request_model.dart';
-import 'package:fic1_pos_flutter_martinus/data/models/response/add_product_response_model.dart';
+import 'package:CashierPOS/core/constants/variables.dart';
+import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
+import 'package:CashierPOS/data/models/request/product_request_model.dart';
+import 'package:CashierPOS/data/models/response/add_product_response_model.dart';
 
-import 'package:fic1_pos_flutter_martinus/data/models/response/product_response_model.dart';
+import 'package:CashierPOS/data/models/response/product_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductRemoteDatasource {
@@ -85,7 +82,7 @@ class ProductRemoteDatasource {
     request.fields.addAll(productRequestModel.toMap());
     request.fields['_method'] = 'PUT';
     print(productRequestModel.image);
-    if (productRequestModel.image?.path != null) {
+    if (productRequestModel.image != null) {
       request.files.add(
         await http.MultipartFile.fromPath(
           'image',

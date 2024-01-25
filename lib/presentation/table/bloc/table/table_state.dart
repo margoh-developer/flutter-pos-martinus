@@ -7,4 +7,5 @@ class TableState with _$TableState {
   const factory TableState.loaded(Map<int, List<OrderItem>> tableOrders) =
       _Loaded;
   const factory TableState.error(String message) = _Error;
+
 }
