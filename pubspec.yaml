@@ -74,6 +74,7 @@ flutter_icons:
   image_path: assets/images/logo.png
   android: true
   ios : true
+  web : true
 # The following section is specific to Flutter packages.
 flutter:
 

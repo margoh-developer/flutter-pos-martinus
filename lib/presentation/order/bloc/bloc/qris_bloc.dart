@@ -15,13 +15,14 @@ class QrisBloc extends Bloc<QrisEvent, QrisState> {
       emit(_Loading());
       final response = await midtransRemoteDataSource.generateQRCode(
           event.orderId, event.grossAmount);
-
+ 
       emit(_QrisResponse(response));
     });
 
     on<_CheckPaymentStatus>((event, emit) async {
       final response =
           await midtransRemoteDataSource.checkPaymentStatus(event.orderId);
+      
       emit(_Loading());
       if (response.transactionStatus == "settlement") {
         emit(_Success("Payment Success"));

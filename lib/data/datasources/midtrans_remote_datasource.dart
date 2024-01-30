@@ -5,7 +5,6 @@ import 'package:CashierPOS/data/models/response/qris_response_model.dart';
 import 'package:CashierPOS/data/models/response/qris_status_response_model.dart';
 import 'package:http/http.dart' as http;
 
-
 class MidtransRemoteDataSource {
   String generateBasicAuthHeader(String serverKey) {
     final base64 = base64Encode(utf8.encode(serverKey));
@@ -21,7 +20,7 @@ class MidtransRemoteDataSource {
       'Authorization': generateBasicAuthHeader(serverKey),
       'Content-Type': 'application/json'
     };
-
+    print(orderId);
     final body = jsonEncode({
       "payment_type": "gopay",
       "transaction_details": {"order_id": orderId, "gross_amount": grossAmount}
@@ -32,6 +31,8 @@ class MidtransRemoteDataSource {
       headers: headers,
       body: body,
     );
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       return QrisResponseModel.fromJson(response.body);
@@ -52,6 +53,7 @@ class MidtransRemoteDataSource {
       Uri.parse('https://api.sandbox.midtrans.com/v2/$orderId/status'),
       headers: headers,
     );
+    print(response);
 
     if (response.statusCode == 200) {
       return QrisStatusResponseModel.fromJson(response.body);

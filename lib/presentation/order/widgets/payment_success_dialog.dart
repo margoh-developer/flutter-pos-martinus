@@ -75,7 +75,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                   const Divider(height: 36.0),
                   _LabelValue(
                     label: 'NOMINAL BAYAR',
-                    value: paymentType == "QRIS"
+                    value: paymentType == "qris"
                         ? total.currencyFormatRp
                         : nominal.currencyFormatRp,
                   ),

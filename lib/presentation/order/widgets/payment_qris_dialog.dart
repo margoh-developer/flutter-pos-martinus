@@ -31,8 +31,10 @@ class _PaymentQrisDialogState extends State<PaymentQrisDialog> {
   Timer? timer;
   @override
   void initState() {
-    context.read<QrisBloc>().add(QrisEvent.generateQRisCode(
-        DateTime.now().millisecondsSinceEpoch.toString(), widget.price));
+    orderId = DateTime.now().millisecondsSinceEpoch.toString();
+    context
+        .read<QrisBloc>()
+        .add(QrisEvent.generateQRisCode(orderId, widget.price));
     super.initState();
   }
 
