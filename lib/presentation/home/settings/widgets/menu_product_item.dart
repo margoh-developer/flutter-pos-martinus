@@ -9,7 +9,6 @@ import '../../../../core/components/spaces.dart';
 import '../../../../core/constants/colors.dart';
 
 import '../../../../core/constants/variables.dart';
-import '../../models/product_model.dart';
 
 class MenuProductItem extends StatelessWidget {
   final Product data;

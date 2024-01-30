@@ -1,5 +1,4 @@
 import 'package:CashierPOS/data/datasources/auth_local_datasource.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SaveBaseURLPage extends StatefulWidget {
@@ -21,7 +20,7 @@ class _SaveBaseURLPageState extends State<SaveBaseURLPage> {
   @override
   void initState() {
     super.initState();
-    
+
     baseURLController = TextEditingController();
     getBaseURL();
     //delay 2 detik
@@ -53,8 +52,7 @@ class _SaveBaseURLPageState extends State<SaveBaseURLPage> {
           //button untuk save server key
           ElevatedButton(
             onPressed: () {
-              AuthLocalDataSource()
-                  .saveBaseURL(baseURLController!.text);
+              AuthLocalDataSource().saveBaseURL(baseURLController!.text);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Base URL Link saved'),
